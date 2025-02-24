@@ -1,0 +1,38 @@
+GET http://localhost:8000/api/v1/customers
+
+###
+
+GET http://localhost:8000/api/v1/customers/2
+
+###
+
+POST http://localhost:8000/api/v1/customers
+Content-Type: application/json
+
+{
+    "firstName": "Sophia",
+    "lastName": "Lopez",
+    "phone": "890-123-4567",
+    "email": "james.lopez@example.com",
+    "birthday": "1987-09-18",
+    "street": "890 Birch St",
+    "city": "Sometown",
+    "state": "TX",
+    "zip_code":"34567"
+}
+
+###
+PUT http://localhost:8000/api/v1/customers/3
+Content-Type: application/json
+
+{
+    "id": 3,
+    "firstName": "firstNameNew1",
+    "lastName": "lastNameNew1",
+    "email": "emailNew1",
+    "address": "addressNew1"
+}
+
+###
+
+DELETE http://localhost:8000/api/v1/customers/3

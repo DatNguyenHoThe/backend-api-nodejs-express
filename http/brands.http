@@ -1,0 +1,29 @@
+GET http://localhost:8000/api/v1/brands
+
+###
+
+GET http://localhost:8000/api/v1/brands/2
+
+###
+
+POST http://localhost:8000/api/v1/brands
+Content-Type: application/json
+
+{
+    "brand_name": "Scott",
+    "description": "Offers a wide range of bicycles for various purposes"
+}
+
+###
+
+PUT http://localhost:8000/api/v1/brands/2
+Content-Type: application/json
+
+{
+    "id": 2,
+    "name": "brandsNew2"
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/brands/2

@@ -1,0 +1,28 @@
+GET http://localhost:8000/api/v1/categories
+
+###create
+
+POST http://localhost:8000/api/v1/categories
+Content-Type: application/json
+
+{
+    "category_name": "Electric",
+    "description": "Bicycles powered by electric motors"
+}
+
+###update
+PUT http://localhost:8000/api/v1/categories/1
+Content-Type: application/json
+
+{
+    "id": 2,
+    "name": "categoriesNew2"
+}
+
+###delete
+DELETE http://localhost:8000/api/v1/categories/1
+
+###
+
+
+

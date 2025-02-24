@@ -1,0 +1,33 @@
+GET  http://localhost:8000/api/v1/staffs
+
+###
+
+GET http://localhost:8000/api/v1/staffs/1
+
+###
+
+POST http://localhost:8000/api/v1/staffs
+Content-Type: application/json
+
+{
+  "first_name": "William",
+  "last_name": "Martinez",
+  "phone": "234-567-8901",
+  "email": "william.martinez@example.com",
+  "active": 1,
+  "store_id": 2,
+  "manage_id": 1
+}
+
+###
+
+PUT http://localhost:8000/api/v1/staffs/1
+Content-Type: application/json
+
+{
+  "name": "staff1-updated",
+  "price": 400
+}
+
+###
+DELETE http://localhost:8000/api/v1/staffs/1

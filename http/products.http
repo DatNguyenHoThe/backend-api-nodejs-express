@@ -1,0 +1,35 @@
+GET  http://localhost:8000/api/v1/products
+
+###
+
+GET http://localhost:8000/api/v1/products/1
+
+###
+
+POST http://localhost:8000/api/v1/products
+Content-Type: application/json
+
+{
+  "product_name": "Electric Bike XL 1",
+  "price": 1000,
+  "discount": 20,
+  "description": "Extra large electric bike powered by electric motor",
+  "model_year": "2022",
+  "thumbnail": "https://picsum.photos/400/400_1",
+  "stock": 200,
+  "category": "67b479aef8df8c568102efba",
+  "brand_id": "67b479aef8df8c568102efb2"
+}
+
+###
+
+PUT http://localhost:8000/api/v1/products/67b7288ba6b2de8c74349cc7
+Content-Type: application/json
+
+{
+  "product_name": "Electric Bike XL 2",
+  "price": 1400
+}
+
+###
+DELETE http://localhost:8000/api/v1/products/67b72859a6b2de8c74349cc0
