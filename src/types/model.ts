@@ -6,7 +6,7 @@ export interface ICategoryCreate {
 }
 
 export interface IBrandCreate {
-    category_name: string;
+    brand_name: string;
     description: string;
 }
 

@@ -10,13 +10,36 @@ import { ICategoryCreate } from '../types/model';
 
 const getAll = async(query: any) => {
     const { page = 1, limit = 10} = query;
+    let sortObject = {};
+    const sortType = query.sort_type || 'desc';
+    const sortBy = query.sort_by || 'createdAt';
+    sortObject = {...sortObject, [sortBy]: sortType === 'desc' ? -1 : 1};
+
+    console.log('sortObject : ', sortObject);
+
+    //Tìm kiếm theo điều kiện
+    let where = {};
+    // nếu có tìm kiếm theo tên danh mục
+    if (query.category_name && query.category_name.length > 0) {
+        where = { ...where, category_name: { $regex: query.category_name, $options: 'i'}};
+    }
     const categories = await Category
-    .find()
+    .find(where)
     .skip((page-1)*limit)
+    .limit(limit)
+    .sort({...sortObject});
 
+    //Đếm tổng số record hiện có của collection Category
+    const count = await Category.countDocuments(where);
 
-
-    return categories;
+    return {
+        categories,
+        pagination: {
+            totalRecord: count,
+            limit,
+            page
+        }
+    };
 }
 
 const getById = async(id: string) => {

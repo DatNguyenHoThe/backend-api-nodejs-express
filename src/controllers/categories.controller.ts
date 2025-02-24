@@ -10,15 +10,25 @@ import  {sendJsonSuccess, httpStatus}  from '../helpers/response.helper';
  * - Không nên xử lý logic nghiệp vụ ở controller
  */
 // Get all categories
-const getAll = async(req: Request, res: Response) => {
-    const categories = await categoriesService.getAll(req.query);
+const getAll = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const categories = await categoriesService.getAll(req.query);
     sendJsonSuccess(res, categories, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next(error);
+    }
 }
 //  Get category by id
-const getById = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const category = await categoriesService.getById(id);
-    sendJsonSuccess(res, category, httpStatus.OK.statusCode, httpStatus.OK.message);
+const getById = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const category = await categoriesService.getById(id);
+        sendJsonSuccess(res, category, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next(error);
+    }
 }
 
 // Create category
@@ -32,23 +42,30 @@ const Create = async(req: Request, res: Response, next: NextFunction) => {
     }
 }
 // Update category
-const Update = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const payload = req.body;
-    const newCategory = categoriesService.updateById(Number(id), payload);
-        res.status(200).json({
-            category: newCategory,
-            message: 'categories updated successfully'
-        });
+const Update = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const payload = req.body;
+        const category = await categoriesService.updateById(id, payload);
+        sendJsonSuccess(res, category, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next (error);
+    }
 }
 // Delete category
-const Delete = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const category = categoriesService.deleteById(Number(id));
+const Delete = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const category = categoriesService.deleteById(id);
         res.status(204).json({
             category,
             message: 'categories deleted successfully'
         });
+    }
+    catch(error) {
+        next (error);
+    }
 }
 
 export default {

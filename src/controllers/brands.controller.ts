@@ -10,20 +10,11 @@ import  {sendJsonSuccess, httpStatus}  from '../helpers/response.helper';
  * - Không nên xử lý logic nghiệp vụ ở controller
  */
 
-const brands = [
-    {
-        id: 1,
-        name: "brand1"
-    },
-    {
-        id: 2,
-        name: "brand2"
-    }
-];
+
 // Get all brands
 const getAll = async(req: Request, res: Response, next: NextFunction) => {
     try{
-        const brands = await brandsService.getAll();
+        const brands = await brandsService.getAll(req.query);
     sendJsonSuccess(res, brands, httpStatus.OK.statusCode, httpStatus.OK.message);
     }
     catch (error){
@@ -32,10 +23,15 @@ const getAll = async(req: Request, res: Response, next: NextFunction) => {
     
 }
 //  Get brand by id
-const getById = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const brand = brandsService.getById(Number(id));
-    res.status(200).json(brand);
+const getById = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const brand = await brandsService.getById(id);
+        sendJsonSuccess(res, brand, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next(error);
+    }
 }
 
 // Create brand
@@ -51,23 +47,27 @@ const Create = async(req: Request, res: Response, next: NextFunction) => {
     
 }
 // Update brand
-const Update = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const payload = req.body;
-    const newbrand = brandsService.updateById(Number(id), payload);
-        res.status(200).json({
-            brand: newbrand,
-            message: 'brands updated successfully'
-        });
+const Update = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const payload = req.body;
+        const brand = await brandsService.updateById(id, payload);
+        sendJsonSuccess(res, brand, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next (error);
+    }
 }
 // Delete brand
-const Delete = async(req: Request, res: Response) => {
-    const { id } = req.params;
-    const brand = brandsService.deleteById(Number(id));
-        res.status(204).json({
-            brand,
-            message: 'brands deleted successfully'
-        });
+const Delete = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { id } = req.params;
+        const brand = await brandsService.deleteById(id);
+        sendJsonSuccess(res, brand, httpStatus.OK.statusCode, httpStatus.OK.message);
+    }
+    catch(error) {
+        next (error);
+    }
 }
 
 export default {
