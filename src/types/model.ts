@@ -3,6 +3,7 @@ import { Decimal128, Int32 } from "mongoose";
 export interface ICategoryCreate {
     category_name: string;
     description: string;
+    slug: string;
 }
 
 export interface IBrandCreate {
@@ -20,16 +21,6 @@ export interface ICustomerCreate {
     city: String,
     state: String,
     zip_code: number
-}
-
-export interface IStaffCreate {
-    first_name: String,
-    last_name: String,
-    phone: String,
-    email: String,
-    active: 0 | 1,
-    store_id: Int32,
-    manage_id: Int32
 }
 
 export interface IProductCreate {

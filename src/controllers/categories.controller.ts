@@ -38,7 +38,7 @@ const Create = async(req: Request, res: Response, next: NextFunction) => {
         const category = await categoriesService.create(payload);
         sendJsonSuccess(res, category, httpStatus.CREATED.statusCode, httpStatus.CREATED.message);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 // Update category

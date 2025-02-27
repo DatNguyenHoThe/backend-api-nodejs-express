@@ -7,7 +7,7 @@ const categorySchema = new Schema({
         type: String,
         required: true, //NOT NULL
         unique: true, // duy nhất
-        minlength: 4, // độ dài tối thiểu
+        minlength: [3, 'độ dài tối thiểu phải là 3 ký tự'], // độ dài tối thiểu
         maxlength: 50, // độ dài tối đa
     },
     description: {
@@ -15,6 +15,14 @@ const categorySchema = new Schema({
         maxlength: 500,
         trim: true, // xóa ký tự trắng ở đầu và cuối chuỗi
         default: "" // giá trị mạc định khi tạo mới
+    },
+    slug: {
+        type: String,
+        maxlength: 50,
+        minlength: 3,
+        require: true,
+        unique: true,
+        lowercase: true
     }
 },
     {

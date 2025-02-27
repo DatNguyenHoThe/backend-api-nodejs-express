@@ -10,13 +10,12 @@ POST http://localhost:8000/api/v1/staffs
 Content-Type: application/json
 
 {
-  "first_name": "William",
-  "last_name": "Martinez",
-  "phone": "234-567-8901",
-  "email": "william.martinez@example.com",
-  "active": 1,
-  "store_id": 2,
-  "manage_id": 1
+  "first_name": "John Doe 1",
+  "last_name": "Doe1",
+  "email": "john@doe1.com",
+  "password": "123456",
+  "active": true
+  
 }
 
 ###
@@ -30,4 +29,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/v1/staffs/1
+DELETE http://localhost:8000/api/v1/staffs/67bfeba00e0ba9d4b210b584

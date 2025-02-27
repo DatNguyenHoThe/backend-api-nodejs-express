@@ -1,6 +1,7 @@
 import createError from 'http-errors';
 import Category from '../models/category.models';
 import { ICategoryCreate } from '../types/model';
+import { buildSlug } from '../helpers/slugify.helper';
 /**
  * Service :
  * - Nhận đầu vào từ controller
@@ -16,6 +17,7 @@ const getAll = async(query: any) => {
     sortObject = {...sortObject, [sortBy]: sortType === 'desc' ? -1 : 1};
 
     console.log('sortObject : ', sortObject);
+    console.log(query);
 
     //Tìm kiếm theo điều kiện
     let where = {};
@@ -31,6 +33,7 @@ const getAll = async(query: any) => {
 
     //Đếm tổng số record hiện có của collection Category
     const count = await Category.countDocuments(where);
+    console.log('category: ', categories);
 
     return {
         categories,
@@ -58,7 +61,11 @@ const create = async (payload: ICategoryCreate) => {
     if(categoryExist) {
         throw createError(400,'category already existed')
     }
-    const category = new Category(payload);
+    const category = new Category({
+        category_name: payload.category_name,
+        description: payload.description,
+        slug: buildSlug(payload.category_name)
+    });
     // lưu vào database
     await category.save();
     // trả về item được tạo ra
@@ -76,6 +83,9 @@ const updateById = async(id: string, payload: any) => {
         }
     }
     //cập nhật sản phẩm
+    if(payload.category_name) {
+        payload.slug = buildSlug(payload.category_name);// cập nhật slug
+    } 
     Object.assign(category, payload); // trộn dữ liệu mới và cũ
     await category.save();
     return category;

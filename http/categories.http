@@ -1,4 +1,4 @@
-GET http://localhost:8000/api/v1/categories
+GET http://localhost:8000/api/v1/categories?sort_type=1
 
 ###create
 
@@ -6,17 +6,17 @@ POST http://localhost:8000/api/v1/categories
 Content-Type: application/json
 
 {
-    "category_name": "Electric",
-    "description": "Bicycles powered by electric motors"
+    "category_name": "New7",
+    "description": "Car7 New7"
 }
 
 ###update
-PUT http://localhost:8000/api/v1/categories/1
+PUT http://localhost:8000/api/v1/categories/67b479aef8df8c568102efb6
 Content-Type: application/json
 
 {
-    "id": 2,
-    "name": "categoriesNew2"
+    "category_name": "Update new category 11",
+    "description": "categoriesNewUpdate11"
 }
 
 ###delete
